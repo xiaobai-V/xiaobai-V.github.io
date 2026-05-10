@@ -1,6 +1,6 @@
 ---
 title: 项目实战
-description: 完整项目记录，面试直接用
+description: 完整项目记录
 ---
 
 # 项目实战
