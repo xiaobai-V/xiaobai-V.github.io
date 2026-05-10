@@ -11,7 +11,8 @@ description: 嵌入式开发学习笔记与技术分享
 
 ## 技术栈
 
-`C` `STM32` `FreeRTOS` `嵌入式Linux` `SPI/I2C/UART/CAN` `NFC/RFID` `Altium Designer` `Verilog/FPGA` `Git`
+- `C` `STM32` `FreeRTOS` `嵌入式Linux` `SPI/I2C/UART/CAN` `NFC/RFID` `Verilog/FPGA`
+- `Idea + Vibe Coding`
 
 ## 内容导航
 
