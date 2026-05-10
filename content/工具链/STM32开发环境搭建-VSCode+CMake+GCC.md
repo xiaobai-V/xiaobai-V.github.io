@@ -40,6 +40,7 @@ ST 官方的图形化配置工具，选芯片、配引脚、设时钟、生成�
 
 ![](../assets/工具链/STM32开发环境搭建-VSCode+CMake+GCC/STM32开发环境搭建-VSCode+CMake+GCC-1778424328069.webp)
 
+注意，不需要再安装C/C++这些
 ### 1.2.3 GCC 交叉编译工具链
 
 `arm-none-eabi-gcc`，ARM 裸机编译器。
@@ -97,15 +98,6 @@ ninja --version
 ## 1.4 常见问题
 
 <!-- 你搭建过程中遇到的问题写在这里 -->
-
-- **Q: CubeMX 不支持生成 CMake 项目？**
-  A: 版本太旧，升级到 6.x 以上
-
-- **Q: CMake 找不到交叉编译器？**
-  A: 检查 arm-none-eabi-gcc 是否在 PATH 中
-
-- **Q: 代码补全不工作？**
-  A: 检查 `c_cpp_properties.json` 中的 includePath 配置
 
 ## 1.5 参考资料
 
