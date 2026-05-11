@@ -38,7 +38,7 @@ ST 官方的图形化配置工具，选芯片、配引脚、设时钟、生成�
 
 目前是3.9.0版本
 
-![](../assets/工具链/STM32开发环境搭建-VSCode+CMake+GCC/STM32开发环境搭建-VSCode+CMake+GCC-1778424328069.webp)
+![](../../image/工具链/STM32开发环境搭建-VSCode+CMake+GCC/STM32开发环境搭建-VSCode+CMake+GCC-1778424290234.webp)
 
 注意，不需要再安装C/C++这些
 ### 1.2.3 GCC 交叉编译工具链

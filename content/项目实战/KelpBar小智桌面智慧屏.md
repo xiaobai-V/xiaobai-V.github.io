@@ -31,6 +31,8 @@ number headings: first-level 2, start-at 1, max 3, 1.1, auto, contents toc
 
 **adb配网**
 
+关于如何安装 adb 
+
 ![](../../image/项目实战/KelpBar小智桌面智慧屏/KelpBar小智桌面智慧屏-1778480318145.webp)
 
 
