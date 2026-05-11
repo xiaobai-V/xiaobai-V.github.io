@@ -103,8 +103,51 @@ int pthread_join(pthread_t thread, void **retval);
 
 该函数成功时返回 0，失败时返回错误码，比如 ESRCH 表示没有找到对应的线程；EINVAL 表示传入的线程是一个分离状态的线程，不能被等待 。下面通过示例展示 pthread_join 的使用方法：
 
-```
-#include <stdio.h>#include <pthread.h>#include <stdlib.h>// 线程执行函数void* thread_function(void* arg) {    int* result = (int*)malloc(sizeof(int));    *result = 42;    return (void*)result;}int main() {    pthread_t tid;    void* thread_result;    int ret = pthread_create(&tid, NULL, thread_function, NULL);    if (ret != 0) {        printf("线程创建失败: %s\n", strerror(ret));        return1;    }    // 等待线程结束并获取返回值    ret = pthread_join(tid, &thread_result);    if (ret != 0) {        printf("等待线程失败: %s\n", strerror(ret));        return1;    }    int* result = (int*)thread_result;    printf("子线程返回值: %d\n", *result);    free(result);    return0;}
+```c
+#include <stdio.h>
+#include <pthread.h>
+#include <stdlib.h>
+#include <string.h> // 补充 strerror 函数需要的头文件
+
+// 线程执行函数
+void *thread_function(void *arg)
+{
+    // 动态分配内存存储返回值
+    int *result = (int *)malloc(sizeof(int));
+    *result = 42;
+    return (void *)result;
+}
+
+int main()
+{
+    pthread_t tid;
+    void *thread_result;
+
+    // 创建线程
+    int ret = pthread_create(&tid, NULL, thread_function, NULL);
+    if (ret != 0)
+    {
+        printf("线程创建失败: %s\n", strerror(ret));
+        return 1;
+    }
+
+    // 等待线程结束并获取返回值
+    ret = pthread_join(tid, &thread_result);
+    if (ret != 0)
+    {
+        printf("等待线程失败: %s\n", strerror(ret));
+        return 1;
+    }
+
+    // 解析线程返回值并打印
+    int *result = (int *)thread_result;
+    printf("子线程返回值: %d\n", *result);
+
+    // 释放动态分配的内存
+    free(result);
+
+    return 0;
+}
 ```
 
 在这个示例中，thread_function 函数在堆上分配内存存储返回值，然后返回 。在 main 函数中，使用 pthread_join 等待子线程结束，并获取其返回值 。获取返回值后，将其转换为 int\*类型并打印，最后释放分配的内存 。如果在等待过程中出现错误，会打印错误信息 。
@@ -131,13 +174,13 @@ retval：是线程的返回值，这个返回值可以被 pthread_join 获取，
 
 pthread_self 函数用于获取当前线程的标识符 。它的函数原型为：
 
-```
+```c
 pthread_t pthread_self(void);
 ```
 
 该函数返回当前线程的 pthread_t 类型标识符 。在多线程程序中，通过 pthread_self 可以方便地区分不同的线程，进行线程特定的操作，比如在日志记录中添加线程标识符，以便追踪每个线程的执行情况 。下面通过一个示例来说明 pthread_self 的作用：
 
-```
+```c
 #include <stdio.h>#include <pthread.h>void* thread_function(void* arg) {    pthread_t self = pthread_self();    printf("子线程 ID: %lu\n", (unsigned long)self);    return NULL;}int main() {    pthread_t tid;    pthread_create(&tid, NULL, thread_function, NULL);    pthread_t main_self = pthread_self();    printf("主线程 ID: %lu\n", (unsigned long)main_self);    pthread_join(tid, NULL);    return0;}
 ```
 
@@ -147,7 +190,7 @@ pthread_t pthread_self(void);
 
 pthread_detach 函数的作用是将指定线程设置为分离状态 。处于分离状态的线程在结束时会自动释放所有资源，无需其他线程调用 pthread_join 来等待它结束 。它的函数原型是：
 
-```
+```c
 int pthread_detach(pthread_t thread);
 ```
 
@@ -155,7 +198,7 @@ thread：指定要设置为分离状态的线程标识符 。
 
 该函数成功时返回 0，失败时返回错误码 。pthread_detach 与 pthread_join 是两种不同的线程资源管理方式 。pthread_join 需要等待线程结束并获取其返回值，适用于需要知道线程执行结果的场景；而 pthread_detach 适用于那些不需要关心线程执行结果，且希望线程结束后自动释放资源的场景，比如一些后台线程，它们默默执行任务，完成后直接释放资源，不需要主线程进行额外的处理 。例如：
 
-```
+```c
 #include <stdio.h>#include <pthread.h>void* thread_function(void* arg) {    printf("分离线程执行\n");    return NULL;}int main() {    pthread_t tid;    int ret = pthread_create(&tid, NULL, thread_function, NULL);    if (ret != 0) {        printf("线程创建失败: %s\n", strerror(ret));        return1;    }    // 将线程设置为分离状态    ret = pthread_detach(tid);     if (ret != 0) {        printf("设置线程分离失败: %s\n", strerror(ret));        return1;    }    printf("主线程继续执行\n");    return0;}
 ```
 
@@ -165,7 +208,7 @@ thread：指定要设置为分离状态的线程标识符 。
 
 pthread_cancel 函数用于取消指定线程的执行 。它的函数原型是：
 
-```
+```c
 int pthread_cancel(pthread_t thread);
 ```
 
@@ -175,16 +218,13 @@ thread：指定要取消的线程标识符 。
 
 当线程到达取消点时，如果有取消请求，就会根据设置的取消状态和类型来决定如何响应 。取消类型分为两种：延迟取消（默认）和异步取消 。延迟取消是指线程到达取消点时才响应取消请求；异步取消则是线程随时响应取消请求 。例如，在下面的代码中，我们尝试取消一个线程：
 
-```
+```c
 #include <stdio.h>#include <pthread.h>#include <unistd.h>void* thread_function(void* arg) {    while (1) {        printf("线程正在执行...\n");        sleep(1); // sleep 是一个取消点    }    return NULL;}int main() {    pthread_t tid;    int ret = pthread_create(&tid, NULL, thread_function, NULL);    if (ret != 0) {        printf("线程创建失败: %s\n", strerror(ret));        return1;    }    sleep(3); // 主线程等待 3 秒    // 取消线程    ret = pthread_cancel(tid);     if (ret != 0) {        printf("取消线程失败: %s\n", strerror(ret));        return1;    }    // 等待线程结束    pthread_join(tid, NULL);     printf("线程已被取消\n");    return0;}
 ```
 
 在这个示例中，thread_function 函数不断打印信息并睡眠 1 秒，sleep 函数是一个取消点 。主线程创建子线程后，等待 3 秒，然后调用 pthread_cancel 取消子线程 。子线程在下次执行到sleep 函数时，检测到取消请求，从而响应取消操作，结束线程 。最后主线程通过pthread_join 等待子线程结束，并打印提示信息 。
 
-## 3 三、深入 pthread 底层内核原理
-
-面试题写作模版
-
+## 3 深入 pthread 底层内核原理
 ### 3.1 Linux 线程实现机制
 
 在 Linux 操作系统中，线程的本质是轻量级进程（Light Weight Process，LWP） 。从内核的角度来看，它并没有为线程专门设计一套独立的数据结构，而是复用了进程的内核数据结构，即 task_struct 。这意味着在 Linux 内核中，进程和线程都被视为一个可调度的任务（task），都由 task_struct 来进行管理 。这种设计方式的精妙之处在于，它极大地减少了内核的代码量，提高了系统的精简程度和运行效率 。
@@ -197,7 +237,7 @@ thread：指定要取消的线程标识符 。
 
 clone 函数是 Linux 系统中用于创建新进程或线程的底层系统调用 ，它的函数原型如下：
 
-```
+```c
 #define _GNU_SOURCE#include <sched.h>int clone(int (*fn)(void *), void *child_stack, int flags, void *arg, ... /* pid_t *parent_tid, void *tls, pid_t *child_tid */ );
 ```
 
@@ -227,7 +267,7 @@ clone 函数是 Linux 系统中用于创建新进程或线程的底层系统调�
 
 当 flags 中设置了这些共享资源的标志位时，创建出来的就是线程；如果没有设置这些共享标志位，或者只设置了一些进程独有的标志位，如 SIGCHLD（用于通知父进程子进程状态的改变，常用于进程创建场景），那么创建出来的就是一个独立的进程 。例如，下面的代码展示了使用 clone 创建线程的示例：
 
-```
+```c
 #define   _GNU_SOURCE#include  <stdio.h>#include  <sched.h>#include  <unistd.h>#include  <sys/wait.h>#include  <stdlib.h>int child_func(void* arg) {    printf("子线程执行，参数为: %d\n", *(int*)arg);    return0;}int main() {    int arg = 10;    void* stack = malloc(1024 * 1024); // 分配 1MB 栈空间    if (!stack) {        perror("malloc");        return1;    }    // 使用 clone 创建线程，设置共享资源标志位    int pid = clone(child_func, (char*)stack + 1024 * 1024, CLONE_VM | CLONE_FS | CLONE_FILES | CLONE_SIGHAND | CLONE_THREAD, &arg);     if (pid == -1) {        perror("clone");        free(stack);        return1;    }    // 等待子线程结束    waitpid(pid, NULL, 0);     free(stack);    return0;}
 ```
 
@@ -269,15 +309,15 @@ clone 函数是 Linux 系统中用于创建新进程或线程的底层系统调�
 
 当另一个线程满足条件后，调用pthread_cond_signal 或 pthread_cond_broadcast唤醒等待队列中的一个或多个线程 。被唤醒的线程会重新获取互斥锁，然后检查条件是否满足，如果满足则继续执行，否则再次等待 。
 
-## 4 四、 pthread 实战案例分析
+## 4 pthread 实战案例分析
 
-面试题写作模版
+
 
 ### 4.1 案例一：线程僵死问题
 
 在一个分布式文件系统中，有多个线程负责文件的读写操作。部分线程在执行文件读取操作时，由于文件系统的某些异常（如磁盘 I/O 错误、文件损坏等），导致线程进入一种无限等待的状态，最终造成线程僵死。从表面上看，开发者可能只是发现某些文件读取请求长时间没有响应，但通过简单的调试很难找到问题的根本原因。
 
-```
+```c
 #include <stdio.h>#include <stdlib.h>#include <pthread.h>#include <unistd.h>#include <fcntl.h>#include <errno.h>// 线程函数：模拟出现 I/O 异常导致线程僵死void *file_read_routine(void *arg) {    // 打开一个不存在或异常的设备/文件    int fd = open("/dev/exception_device", O_RDONLY);    if (fd == -1) {        perror("文件打开失败");        return NULL;    }    char buffer[1024];    // 无超时、无错误处理，异常时会永久阻塞    ssize_t ret = read(fd, buffer, sizeof(buffer));    // 若 I/O 异常卡死，以下代码永远不会执行    printf("读取完成，返回值：%ld\n", ret);    close(fd);    return NULL;}int main() {    pthread_t tid;    pthread_create(&tid, NULL, file_read_routine, NULL);    // 主线程等待僵死线程，永远无法返回    pthread_join(tid, NULL);    return0;}
 ```
 
@@ -287,7 +327,7 @@ clone 函数是 Linux 系统中用于创建新进程或线程的底层系统调�
 
 **
 
-```
+```c
 void *file_read_safe_routine(void *arg) {    // 以非阻塞方式打开文件    int fd = open("/dev/exception_device", O_RDONLY | O_NONBLOCK);    if (fd == -1) {        perror("文件打开失败");        return NULL;    }    // 设置 1 秒超时    struct timeval tv = {.tv_sec = 1, .tv_usec = 0};    fd_set read_fds;    FD_ZERO(&read_fds);    FD_SET(fd, &read_fds);    // 等待数据可读，超时则退出    int ready = select(fd + 1, &read_fds, NULL, NULL, &tv);    if (ready == -1) {        perror("select 错误");        close(fd);        return NULL;    } elseif (ready == 0) {        printf("读取超时，线程安全退出，避免僵死\n");        close(fd);        return NULL;    }    // 正常读取    char buffer[1024];    read(fd, buffer, sizeof(buffer));    printf("文件读取成功\n");    close(fd);    return NULL;}
 ```
 
@@ -297,7 +337,7 @@ void *file_read_safe_routine(void *arg) {    // 以非阻塞方式打开文
 
 考虑一个银行转账系统，假设有两个账户 A 和 B，有两个线程分别负责从账户 A 向账户 B 转账和从账户 B 向账户 A 转账的操作。每个线程在进行转账操作时，都需要先获取两个账户的锁，以保证转账过程的原子性和数据一致性。但如果代码编写不当，就可能出现死锁。比如，线程 1 先获取了账户 A 的锁，然后试图获取账户 B 的锁；与此同时，线程 2 先获取了账户 B 的锁，然后试图获取账户 A 的锁。这样，两个线程就相互等待对方释放锁，形成了死锁。
 
-```
+```c
 #include <stdio.h>#include <pthread.h>#include <unistd.h>// 两个账户对应的互斥锁pthread_mutex_t accountA = PTHREAD_MUTEX_INITIALIZER;pthread_mutex_t accountB = PTHREAD_MUTEX_INITIALIZER;// 线程 1：A → Bvoid *transfer_A2B(void *arg) {    pthread_mutex_lock(&accountA);    printf("线程 1：已锁住账户 A\n");    sleep(1); // 放大死锁概率    // 等待线程 2 释放 accountB，形成死锁    pthread_mutex_lock(&accountB);    printf("线程 1：转账完成\n");    pthread_mutex_unlock(&accountB);    pthread_mutex_unlock(&accountA);    return NULL;}// 线程 2：B → Avoid *transfer_B2A(void *arg) {    pthread_mutex_lock(&accountB);    printf("线程 2：已锁住账户 B\n");    sleep(1);    // 等待线程 1 释放 accountA，形成死锁    pthread_mutex_lock(&accountA);    printf("线程 2：转账完成\n");    pthread_mutex_unlock(&accountA);    pthread_mutex_unlock(&accountB);    return NULL;}
 ```
 
@@ -305,9 +345,8 @@ void *file_read_safe_routine(void *arg) {    // 以非阻塞方式打开文
 
 **代码示例：统一锁顺序，解决死锁
 
-**
 
-```
+```c
 // 所有线程都按照固定顺序获取锁：先 A 后 Bvoid *transfer_safe(void *arg) {    // 统一顺序：先锁 A，再锁 B    pthread_mutex_lock(&accountA);    pthread_mutex_lock(&accountB);    printf("线程：执行转账操作\n");    // 释放顺序与获取顺序相反    pthread_mutex_unlock(&accountB);    pthread_mutex_unlock(&accountA);    return NULL;}
 ```
 
@@ -317,7 +356,7 @@ void *file_read_safe_routine(void *arg) {    // 以非阻塞方式打开文
 
 以一个在线游戏服务器为例，多个线程负责处理玩家的游戏操作请求，如移动、攻击、交易等。在高并发情况下，由于线程调度的不确定性，可能会出现并发调度异常，导致玩家的操作顺序被打乱，影响游戏的公平性和体验。比如，玩家 A 先发起攻击操作，然后发起移动操作，但由于并发调度异常，服务器可能先处理了移动操作，后处理攻击操作，这就使得游戏中的实际情况与玩家的预期不符。
 
-```
+```c
 #include <stdio.h>#include <pthread.h>#include <unistd.h>// 无同步控制，调度无序void *attack(void *arg) {    printf("玩家执行攻击\n");    return NULL;}void *move(void *arg) {    printf("玩家执行移动\n");    return NULL;}// 结果可能出现：先攻击后移动，逻辑错误
 ```
 
@@ -327,33 +366,29 @@ void *file_read_safe_routine(void *arg) {    // 以非阻塞方式打开文
 
 **
 
-```
+```c
 #include <stdio.h>#include <pthread.h>pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;pthread_cond_t cond = PTHREAD_COND_INITIALIZER;int move_finished = 0;// 线程：移动void *move_thread(void *arg) {    pthread_mutex_lock(&mutex);    printf("玩家移动完成\n");    move_finished = 1;    // 唤醒等待的攻击线程    pthread_cond_signal(&cond);    pthread_mutex_unlock(&mutex);    return NULL;}// 线程：攻击（必须等待移动完成）void *attack_thread(void *arg) {    pthread_mutex_lock(&mutex);    // 等待移动完成    while (!move_finished) {        pthread_cond_wait(&cond, &mutex);    }    printf("玩家发起攻击\n");    pthread_mutex_unlock(&mutex);    return NULL;}
 ```
 
 如果依赖，线程就等待相应的条件变量被触发。当相关操作完成后，通过条件变量唤醒等待的线程，确保操作按照正确的顺序执行。同时，结合互斥锁保证共享数据（如玩家的状态信息）的安全访问，避免数据不一致的问题。通过这种方式，有效地解决了并发调度异常，提升了游戏服务器的性能和稳定性。
 
-## 5 五、pthread 实战避坑指南
+## 5 pthread 实战避坑指南
 
-面试题写作模版
+
 
 ### 5.1 线程创建与资源管理
 
-**（1）线程创建失败原因与解决——在使用 pthread_create 创建线程时，可能会遭遇创建失败的情况
+**（1）线程创建失败原因与解决——在使用 pthread_create 创建线程时，可能会遭遇创建失败的情况。**
 
-。
-
-**这就好比在一场体育赛事中，招募新选手（创建新线程）时却遇到了阻碍。其中一个常见原因是系统资源限制，当达到最大线程数时，就像赛事的参赛名额已满，无法再接纳新选手。例如在 Linux 系统中，每个进程所能创建的线程数量是有限制的，这个限制可以通过 ulimit -u 命令查看 。当线程创建失败返回 EAGAIN 错误码时，很可能就是因为达到了这个限制。此时，我们可以通过调整系统参数来解决，比如使用 ulimit -u new_limit 命令临时提高每个用户可创建的最大线程数 new_limit，或者修改/etc/security/limits.conf 文件进行永久设置 。
+这就好比在一场体育赛事中，招募新选手（创建新线程）时却遇到了阻碍。其中一个常见原因是系统资源限制，当达到最大线程数时，就像赛事的参赛名额已满，无法再接纳新选手。例如在 Linux 系统中，每个进程所能创建的线程数量是有限制的，这个限制可以通过 ulimit -u 命令查看 。当线程创建失败返回 EAGAIN 错误码时，很可能就是因为达到了这个限制。此时，我们可以通过调整系统参数来解决，比如使用 ulimit -u new_limit 命令临时提高每个用户可创建的最大线程数 new_limit，或者修改/etc/security/limits.conf 文件进行永久设置 。
 
 内存不足也是导致线程创建失败的一个重要因素。线程的创建需要分配一定的内存空间，包括线程栈、线程控制块等，如果系统内存紧张，无法满足这些内存需求，线程创建就会失败。这就如同建造房屋（创建线程）时，没有足够的建筑材料（内存）。当遇到这种情况时，我们需要优化程序的内存使用，释放不必要的内存资源，或者增加系统的物理内存。还有一种情况是线程属性设置错误，比如设置了不支持的调度策略、非法的栈大小等，这就像给选手制定了不合理的比赛规则，导致招募失败。此时，我们需要仔细检查线程属性的设置，确保其符合系统的要求和规范。
 
-**（2）栈空间配置问题——线程的栈空间就像是选手比赛时的专属场地，用于存储局部变量、函数调用帧等信息。
+**（2）栈空间配置问题——线程的栈空间就像是选手比赛时的专属场地，用于存储局部变量、函数调用帧等信息。**
 
+如果栈空间配置过小，就像场地过于狭小，选手施展不开；或者递归深度过大，不断地往场地里堆放物品，最终都可能导致栈溢出，程序崩溃。例如下面这段简单的递归代码：
 
-
-**如果栈空间配置过小，就像场地过于狭小，选手施展不开；或者递归深度过大，不断地往场地里堆放物品，最终都可能导致栈溢出，程序崩溃。例如下面这段简单的递归代码：
-
-```
+```c
 #include <stdio.h>#include <pthread.h>void recursive_function() {    int local_variable[10000];  // 占用较大栈空间的局部数组    recursive_function();  // 递归调用}void* thread_function(void* arg) {    recursive_function();    return NULL;}int main() {    pthread_t thread;    if (pthread_create(&thread, NULL, thread_function, NULL) != 0) {        perror("pthread_create");        return1;    }    if (pthread_join(thread, NULL) != 0) {        perror("pthread_join");        return1;    }    return0;}
 ```
 
@@ -475,7 +510,7 @@ SCHED_OTHER 是默认的调度策略，它适用于普通的非实时任务，�
 
 ## 6 六、附录：经典面试题解析
 
-面试题写作模版
+
 
 ### 6.1 描述线程和进程的区别，以及 pthread 线程的特点？
 
@@ -560,79 +595,20 @@ pthread_mutex_lock(&mutex);while (condition_is_false) {    pthread_cond_wait(
 这样，即使发生虚假唤醒，线程也会重新检查条件，若条件不满足则继续等待，从而保证程序的正确性 。
 
 end
-
   
-
   
-
-如果这篇文章对你有所启发，欢迎点赞、在看，转发三连。星标⭐账号，还可以第一时间收到推送，感谢你的收看，我们下期再见～
-
-  
-
 往期干货推荐
 
-☑
+☑【专栏模块】[嵌入式Linux](https://mp.weixin.qq.com/mp/appmsgalbum?__biz=Mzg4NDQ0OTI4Ng==&action=getalbum&album_id=3206967864977817603#wechat_redirect)
 
-【专栏
+☑【专栏模块】[性能优化](https://mp.weixin.qq.com/mp/appmsgalbum?__biz=Mzg4NDQ0OTI4Ng==&action=getalbum&album_id=3354529506191245313#wechat_redirect)
 
-模块
+☑【专栏模块】[面试八股文](https://mp.weixin.qq.com/mp/appmsgalbum?__biz=Mzg4NDQ0OTI4Ng==&action=getalbum&album_id=3601023407971401733#wechat_redirect)
 
-】
+☑【专栏模块】[项目实战](https://mp.weixin.qq.com/mp/appmsgalbum?__biz=Mzg4NDQ0OTI4Ng==&action=getalbum&album_id=3037464324489117698#wechat_redirect)
 
-[嵌入式Linux](https://mp.weixin.qq.com/mp/appmsgalbum?__biz=Mzg4NDQ0OTI4Ng==&action=getalbum&album_id=3206967864977817603#wechat_redirect)
+☑【硬核干货】[缺了这些，别说你懂 Linux内核](https://mp.weixin.qq.com/mp/appmsgalbum?__biz=Mzg4NDQ0OTI4Ng==&action=getalbum&album_id=4453174433557774341#wechat_redirect)
 
-☑
+☑【硬核干货】[缺了这些，别说你懂 Linux C/C++](https://mp.weixin.qq.com/mp/appmsgalbum?__biz=Mzg4NDQ0OTI4Ng==&action=getalbum&album_id=3140091333123276802#wechat_redirect)
 
-【
-
-专栏
-
-模块】
-
-[性能优化](https://mp.weixin.qq.com/mp/appmsgalbum?__biz=Mzg4NDQ0OTI4Ng==&action=getalbum&album_id=3354529506191245313#wechat_redirect)
-
-☑
-
-【
-
-专栏
-
-模块】
-
-[面试八股文](https://mp.weixin.qq.com/mp/appmsgalbum?__biz=Mzg4NDQ0OTI4Ng==&action=getalbum&album_id=3601023407971401733#wechat_redirect)
-
-☑
-
-【
-
-专栏
-
-模块
-
-】
-
-[项目实战](https://mp.weixin.qq.com/mp/appmsgalbum?__biz=Mzg4NDQ0OTI4Ng==&action=getalbum&album_id=3037464324489117698#wechat_redirect)
-
-☑
-
-【硬核干货
-
-】
-
-[缺了这些，别说你懂 Linux内核](https://mp.weixin.qq.com/mp/appmsgalbum?__biz=Mzg4NDQ0OTI4Ng==&action=getalbum&album_id=4453174433557774341#wechat_redirect)
-
-☑
-
-【
-
-硬核
-
-干货】
-
-[缺了这些，别说你懂 Linux C/C++](https://mp.weixin.qq.com/mp/appmsgalbum?__biz=Mzg4NDQ0OTI4Ng==&action=getalbum&album_id=3140091333123276802#wechat_redirect)
-
-☑
-
-【学习思维导图】
-
-[Linux内核源码自主学习路线](https://mp.weixin.qq.com/s?__biz=Mzg4NDQ0OTI4Ng==&mid=2247493867&idx=1&sn=848ef81157409d02ab88435843e91083&scene=21#wechat_redirect)
+☑【学习思维导图】[Linux内核源码自主学习路线](https://mp.weixin.qq.com/s?__biz=Mzg4NDQ0OTI4Ng==&mid=2247493867&idx=1&sn=848ef81157409d02ab88435843e91083&scene=21#wechat_redirect)
