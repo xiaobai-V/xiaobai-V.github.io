@@ -1,8 +1,9 @@
 ---
-title: pthread线程底层
-description: pthread线程底层原理的总结，从API到底层调度
+title: KelpBar小智桌面智慧屏
+description: 学习小智桌面智慧屏，硬件+软件路线
 tags:
   - 嵌入式Linux
+links: https://x509p6c8to.feishu.cn/docx/GDD5dhbCXoAPrFxekSgco6Jtneg
 number headings: first-level 2, start-at 1, max 3, 1.1, auto, contents toc
 ---
 # 快速上手体验
@@ -25,4 +26,6 @@ number headings: first-level 2, start-at 1, max 3, 1.1, auto, contents toc
   > 目前已知WiFi部分存在一个概率出现的BUG，会导致卡住连不上网，可以拔掉电源重启后重试两次即可，待修复中。
 
 尝试断电重试，没有解决。
-adb
+
+**adb配网**
+![[../../image/attachments/Pasted image 20260511141216.png]]
