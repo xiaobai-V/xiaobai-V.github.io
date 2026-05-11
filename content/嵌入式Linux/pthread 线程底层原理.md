@@ -1,3 +1,7 @@
+---
+
+---
+
 # 1 不懂 pthread 线程底层，别说你会 Linux多线程开发
 
 
@@ -24,17 +28,16 @@ pthread 库是 POSIX 线程标准（Portable Operating System Interface for Thre
 #include <pthread.h>
 ```
 
-编译包含 pthread 库函数的代码时，要链接-lpthread 库，它包含了 pthread 库的实现代码，告诉链接器去查找并链接这些代码。在命令行中使用 gcc 编译时，通过-pthread 选项指定链接 pthread 库，如：
+编译包含 pthread 库函数的代码时，要链接`-lpthread` 库，它包含了 pthread 库的实现代码，告诉链接器去查找并链接这些代码。在命令行中使用 gcc 编译时，通过-pthread 选项指定链接 pthread 库，如：
 
-```
+```c
 gcc -o my_program my_program.c -pthread
 ```
 
 这样，我们就能顺利使用 pthread 库提供的功能，开启多线程编程之旅。
 
-## 1.2 二、pthread API 详解
+## 1.2 pthread API 详解
 
-面试题写作模版
 
 pthread 库提供了一系列丰富且强大的 API，这些 API 是我们进行多线程编程的得力工具，涵盖了线程从诞生到消亡的整个生命周期，以及线程间同步协作等关键方面 。熟练掌握这些 API 的使用方法和内在原理，是编写出高效、稳定多线程程序的基础 。下面，我们就来深入探究 pthread 库中那些核心 API。
 
