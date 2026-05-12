@@ -4,6 +4,21 @@
   "title": "我来帮您整理这篇Linux内核相关的文章。让我先查看一下当前目录中的文章内容。\n\n抱歉，我目前...",
   "titleGenerationStatus": "success",
   "createdAt": 1778555085895,
-  "updatedAt": 1778555149392,
-  "sessionId": null
+  "updatedAt": 1778555568552,
+  "lastResponseAt": 1778555568552,
+  "sessionId": "ff79d822-96d4-40d4-99f2-b776e22d410d",
+  "providerState": {
+    "providerSessionId": "ff79d822-96d4-40d4-99f2-b776e22d410d"
+  },
+  "currentNote": "content/嵌入式Linux/pthread 线程底层原理.md",
+  "usage": {
+    "model": "sonnet",
+    "inputTokens": 6371,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 65728,
+    "contextWindow": 200000,
+    "contextTokens": 72099,
+    "percentage": 36,
+    "contextWindowIsAuthoritative": true
+  }
 }
