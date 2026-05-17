@@ -113,7 +113,7 @@ if (blocks_write < expected_count) { ... }
 int main()
 {
     char write_buf[] = "Hello world!\n";
-
+    char read_buf[256];
     FILE *fp = fopen("example.txt", "w+");
     if (fp == NULL)
     {
@@ -137,7 +137,25 @@ int main()
 
     // 定位光标
 
+    if (fseek(fp, 0, SEEK_SET) != 0)
+    {
+        printf("充值文件指针失败\n");
+        fclose(fp);
+        return 1;
+    }
     // 读取文件
+    size_t bytes_read = fread(read_buf, sizeof(char), sizeof(read_buf), fp);
+    if (bytes_read > 0)
+    {
+        read_buf[bytes_read] = '\0'; // 添加字符串结束符
+        printf("成功读取到 %zu 字节：%s\n", bytes_read, read_buf);
+    }
+    else
+    {
+        printf("读取文件失败\n");
+        fclose(fp);
+        return 1;
+    }
 
     // 关闭文件
     if (fclose(fp) != 0)
