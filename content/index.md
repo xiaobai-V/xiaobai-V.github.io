@@ -24,3 +24,7 @@ description: 嵌入式开发学习笔记与技术分享
 - [[项目实战/index|项目实战]] — 完整项目记录
 - [[工具链/index|工具链]] — 工具链使用
 - [[随笔/index|随笔]] — 分享嵌入式开发心得
+
+## 1.3 Github仓库
+
+[xiaobai-V (tangyuan)](https://github.com/xiaobai-V)
