@@ -5,14 +5,10 @@ description: 嵌入式开发学习笔记与技术分享
 
 # 1 点灯高手
 
-个人嵌入式学习主页，专注 MCU / RTOS / Linux 驱动方向。
-
-为了更加系统的学习嵌入式相关知识，记录我的学习过程和项目实践。
-
+个人嵌入式学习主页，硬件、MCU、RTOS、Linux，技术宅，喜欢折腾各种电子玩意儿，梦想能做出一款很酷很棒的产品。
 ## 1.1 技术栈
 
-- `C` `STM32` `FreeRTOS` `嵌入式Linux` `SPI/I2C/UART/CAN` `NFC/RFID` `Verilog/FPGA`
-- `Vibe Coding`
+- `C` `STM32` `FreeRTOS` `嵌入式Linux` `SPI/I2C/UART/CAN` `NFC/RFID`
 
 ## 1.2 内容导航
 

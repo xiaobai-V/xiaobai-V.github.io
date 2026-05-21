@@ -8,7 +8,7 @@ import * as Plugin from "./quartz/plugins"
  */
 const config: QuartzConfig = {
   configuration: {
-    pageTitle: "个人嵌入式知识库",
+    pageTitle: "汤圆星球的随想录",
     pageTitleSuffix: "",
     enableSPA: true,
     enablePopovers: true,
