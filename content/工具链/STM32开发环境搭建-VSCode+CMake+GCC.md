@@ -43,8 +43,7 @@ ST 官方的图形化配置工具，选芯片、配引脚、设时钟、生成�
 ### 2.2.2 安装STM32CubeIDE for Visual Studio Code插件
 
 目前是3.9.0版本
-
-![525](../../image/工具链/STM32开发环境搭建-VSCode+CMake+GCC/STM32开发环境搭建-VSCode+CMake+GCC-1778424290234.webp)
+![](../../image/工具链/STM32开发环境搭建-VSCode+CMake+GCC/STM32开发环境搭建-VSCode+CMake+GCC-1780716616936.webp)
 
 > [!warning]
 > 不需要再安装`C/C++`插件
