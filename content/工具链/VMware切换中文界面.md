@@ -18,7 +18,7 @@ number headings: first-level 1, start-at 1, max 3, 1.1, auto, contents toc
 
 **注意：**
 > 我使用QQ邮箱注册下载的时候提示 `Account verification is Pending. Please try after some time.` 换用学校邮箱可以下载
-> 也看到有帖子建议 更新 personal profile，我没试过> 
+> 也看到有帖子建议更新 personal profile，我没试过 
 
 # 3 安装环境：
 
