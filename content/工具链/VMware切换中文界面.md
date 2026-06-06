@@ -26,7 +26,7 @@ number headings: first-level 1, start-at 1, max 3, 1.1, auto, contents toc
 
 - Windows 11
 - VMware Workstation Pro 26H1
-
+![](./assets/VMware切换中文界面-1780717290318.webp)
 ![](../../image/工具链/VMware切换中文界面/VMware切换中文界面-1780662992208.webp)
 
 # 4 切换中文
