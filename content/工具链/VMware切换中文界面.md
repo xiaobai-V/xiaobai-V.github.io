@@ -31,12 +31,30 @@ number headings: first-level 1, start-at 1, max 3, 1.1, auto, contents toc
 
 # 4 切换中文
 
+## 4.1 中文语言包复制
+
+下载地址：
+通过网盘分享的文件：VMWare WorkStation Pro 中文包.rar
+链接: https://pan.baidu.com/s/1spiED2RAQwRp_VtzIDpzhg?pwd=4bi3 提取码: 4bi3 
+--来自百度网盘超级会员v4的分享
+
+
 ![](../../image/工具链/VMware切换中文界面/VMware切换中文界面-1780663752629.webp)
+## 4.2 编辑对应的配置文件
 ![](../../image/工具链/VMware切换中文界面/VMware切换中文界面-1780663720528.webp)
 
-![](../../image/工具链/VMware切换中文界面/VMware切换中文界面-1780663697242.webp)![](../../image/工具链/VMware切换中文界面/VMware切换中文界面-1780663805761.webp)
+![](../../image/工具链/VMware切换中文界面/VMware切换中文界面-1780663697242.webp)
+
+## 4.3 重新运行vmware虚拟机
+
+![](../../image/工具链/VMware切换中文界面/VMware切换中文界面-1780663805761.webp)
 
 
-## 4.1 在启动的时候直接指定语言
 
-没做
+# 5 在启动的时候直接指定语言
+
+```bash
+"X:\Program Files\VMware\VMware Workstation\vmware.exe" --locale zh_CN
+```
+
+![](../../image/工具链/VMware切换中文界面/VMware切换中文界面-1780664391755.webp)
