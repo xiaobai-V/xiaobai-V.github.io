@@ -1,4 +1,6 @@
 ---
+title:
+description:
 created: 2026-05-23
 updated: 2026-05-23
 tags:
