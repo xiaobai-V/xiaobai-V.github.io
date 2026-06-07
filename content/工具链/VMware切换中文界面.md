@@ -27,7 +27,7 @@ number headings: first-level 1, start-at 1, max 3, 1.1, auto, contents toc
 - Windows 11
 - VMware Workstation Pro 26H1
 ![](./assets/VMware切换中文界面-1780717290318.webp)
-![](../../image/工具链/VMware切换中文界面/VMware切换中文界面-1780662992208.webp)
+![](../image/工具链/VMware切换中文界面/VMware切换中文界面-1780662992208.webp)
 
 # 4 切换中文
 
@@ -39,15 +39,15 @@ number headings: first-level 1, start-at 1, max 3, 1.1, auto, contents toc
 --来自百度网盘超级会员v4的分享
 
 
-![](../../image/工具链/VMware切换中文界面/VMware切换中文界面-1780663752629.webp)
+![](../image/工具链/VMware切换中文界面/VMware切换中文界面-1780663752629.webp)
 ## 4.2 编辑对应的配置文件
-![](../../image/工具链/VMware切换中文界面/VMware切换中文界面-1780663720528.webp)
+![](../image/工具链/VMware切换中文界面/VMware切换中文界面-1780663720528.webp)
 
-![](../../image/工具链/VMware切换中文界面/VMware切换中文界面-1780663697242.webp)
+![](../image/工具链/VMware切换中文界面/VMware切换中文界面-1780663697242.webp)
 
 ## 4.3 重新运行vmware虚拟机
 
-![](../../image/工具链/VMware切换中文界面/VMware切换中文界面-1780663805761.webp)
+![](../image/工具链/VMware切换中文界面/VMware切换中文界面-1780663805761.webp)
 
 
 
@@ -57,4 +57,4 @@ number headings: first-level 1, start-at 1, max 3, 1.1, auto, contents toc
 "X:\Program Files\VMware\VMware Workstation\vmware.exe" --locale zh_CN
 ```
 
-![](../../image/工具链/VMware切换中文界面/VMware切换中文界面-1780664391755.webp)
+![](../image/工具链/VMware切换中文界面/VMware切换中文界面-1780664391755.webp)
