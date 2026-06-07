@@ -38,21 +38,26 @@ number headings: first-level 1, start-at 1, max 3, 1.1, auto, contents toc
 > 链接: https://pan.baidu.com/s/1spiED2RAQwRp_VtzIDpzhg?pwd=4bi3 提取码: 4bi3 
 > --来自百度网盘超级会员v4的分享
 
-复制到 `VMw`
+解压，复制到 `VMware Worksation/messages`目录下
 
 ![](../image/工具与方法/VMware切换中文界面/VMware切换中文界面-1780663752629.webp)
 ## 4.2 编辑对应的配置文件
+
+路径 `C:\Users\<用户名>\AppData\Roaming\VMware\preferences.ini`
+
 ![](../image/工具与方法/VMware切换中文界面/VMware切换中文界面-1780663720528.webp)
 
 ![](../image/工具与方法/VMware切换中文界面/VMware切换中文界面-1780663697242.webp)
 
 ## 4.3 重新运行vmware虚拟机
 
+打开即为中文页面
+
 ![](../image/工具与方法/VMware切换中文界面/VMware切换中文界面-1780663805761.webp)
 
-
-
 # 5 在启动的时候直接指定语言
+
+快捷方式，右键，属性， 目标后面添加 `--locale zh_CN`
 
 ```bash
 "X:\Program Files\VMware\VMware Workstation\vmware.exe" --locale zh_CN
