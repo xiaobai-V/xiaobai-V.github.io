@@ -17,8 +17,8 @@ number headings: first-level 1, start-at 1, max 3, 1.1, auto, contents toc
 要填不少个人信息
 
 **注意：**
-> 我使用QQ邮箱注册下载的时候提示 `Account verification is Pending. Please try after some time.` 换用学校邮箱可以下载
-> 也看到有帖子建议更新 personal profile，我没试过 
+> 使用QQ邮箱注册下载的时候提示 `Account verification is Pending. Please try after some time.` 换用学校邮箱可以下载
+> 也看到有帖子建议更新 personal profile，笔者没试过 
 
 # 3 安装环境：
 
@@ -30,7 +30,7 @@ number headings: first-level 1, start-at 1, max 3, 1.1, auto, contents toc
 
 # 4 切换中文
 
-## 4.1 中文语言包复制
+## 4.1 中文语言包复制到 VMware安装路径
 
 下载地址：
 
@@ -38,6 +38,7 @@ number headings: first-level 1, start-at 1, max 3, 1.1, auto, contents toc
 > 链接: https://pan.baidu.com/s/1spiED2RAQwRp_VtzIDpzhg?pwd=4bi3 提取码: 4bi3 
 > --来自百度网盘超级会员v4的分享
 
+复制到 `VMw`
 
 ![](../image/工具与方法/VMware切换中文界面/VMware切换中文界面-1780663752629.webp)
 ## 4.2 编辑对应的配置文件
