@@ -12,11 +12,11 @@ description: 嵌入式开发学习笔记与技术分享
 
 ## 1.2 内容导航
 
-- [[嵌入式Linux/index|嵌入式 Linux]] — Linux应用、驱动开发，多进程/线程编程，IPC，Socket编程
-- [[RTOS/index|FreeRTOS]] — 任务管理、内存管理、同步机制
-- [[STM32/index|STM32 ]] — HAL库、标准库、外设驱动
+- [[Linux/index|嵌入式 Linux]] — Linux应用、驱动开发，多进程/线程编程，IPC，Socket编程
+- [[MCU/FreeRTOS/index|FreeRTOS]] — 任务管理、内存管理、同步机制
+- [[MCU/STM32/index|STM32 ]] — HAL库、标准库、外设驱动
 - [[基础/C语言/index|C 语言进阶]] — 指针、内存、编码实践
-- [[硬件基础/index|硬件基础]] — 通信协议、元器件、电路
+- [[基础/硬件与协议/index|硬件基础]] — 通信协议、元器件、电路
 - [[项目实战/index|项目实战]] — 完整项目记录
 - [[工具链/index|工具链]] — 工具链使用
 - [[随笔/index|随笔]] — 分享嵌入式开发心得
