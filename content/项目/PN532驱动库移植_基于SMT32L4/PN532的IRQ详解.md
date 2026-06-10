@@ -1,6 +1,6 @@
 ---
-title:
-description:
+title: PN532的IRQ详解
+description: 详解PN532的IRQ引脚的功能和配置选项
 tags:
 created: 2026-06-10
 updated: 2026-06-10
@@ -10,17 +10,15 @@ number headings: first-level 1, start-at 1, max 3, 1.1, auto, contents toc
 
 我需要将 PN532 的 IRQ 引脚连接到 STM32L496VET6 的外部中断引脚上，用于取代SPI轮询方式检测 PN532 模块，减少 CPU 的占用。
 ## 1.1 遇到问题：
-### 1.1.1 PN532的中断引脚的作用和工作模式是什么？
+### 1.1.1 PN532的IRQ中断引脚的作用和工作模式是什么？
 
-看手册
+NXP PN532手册官方下载链接：[PN532_C1.fm](https://www.nxp.com/docs/en/nxp/data-sheets/PN532_C1.pdf)
 ### 1.1.2 STM32 的中断引脚如何配置？
 
    配置为外部中断模式，采用什么边沿触发？是否需要上拉？
-
-![](../../image/硬件与协议/PN532的准双向模式IO/PN532的准双向模式IO-1781061753246.webp)
-# 2 
+# 2 IRQ引脚说明
 
 
-[[../../项目/PN532驱动库移植_基于SMT32L4/PN532模块基本介绍和接线说明|PN532模块基本介绍和接线说明]]
 
-![](../../image/硬件与协议/PN532的准双向模式IO/PN532的准双向模式IO-1781061358152.webp)
+![](../../image/PN532驱动库移植_基于SMT32L4/PN532的IRQ详解/PN532的IRQ详解-1781061999058.webp)
+
