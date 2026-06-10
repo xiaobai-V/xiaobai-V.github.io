@@ -1,0 +1,23 @@
+{
+  "id": "conv-1781050900367-xa2g3ys76",
+  "providerId": "claude",
+  "title": "# 仓库同步问题诊断 - GitHub上传失败",
+  "titleGenerationStatus": "success",
+  "createdAt": 1781050900367,
+  "updatedAt": 1781051272420,
+  "lastResponseAt": 1781051272420,
+  "sessionId": "ec0d6b6f-8698-4e79-a73e-ecaae598313a",
+  "providerState": {
+    "providerSessionId": "ec0d6b6f-8698-4e79-a73e-ecaae598313a"
+  },
+  "usage": {
+    "model": "sonnet",
+    "inputTokens": 196,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 30720,
+    "contextWindow": 200000,
+    "contextTokens": 30916,
+    "percentage": 15,
+    "contextWindowIsAuthoritative": true
+  }
+}

@@ -1,16 +1,15 @@
 {
   "id": "conv-1779373525840-1u1polr8n",
   "providerId": "claude",
-  "title": "AI时代，记笔记写博客的意义还大吗？\n\n## 🎯 核心观点\n\n### ✅ **记笔记的意义不...",
+  "title": "🔧 **GitHub仓库同步问题诊断与修复**",
   "titleGenerationStatus": "success",
   "createdAt": 1779373525841,
-  "updatedAt": 1779373555433,
-  "lastResponseAt": 1779373555433,
+  "updatedAt": 1781050896416,
+  "lastResponseAt": 1781050846049,
   "sessionId": "da645e34-ab9b-4de5-bbc3-ec74f7e3ef87",
   "providerState": {
     "providerSessionId": "da645e34-ab9b-4de5-bbc3-ec74f7e3ef87"
   },
-  "currentNote": "content/嵌入式Linux/有名管道FIFO的同步机制.md",
   "usage": {
     "model": "sonnet",
     "inputTokens": 27181,
