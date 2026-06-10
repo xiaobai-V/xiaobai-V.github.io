@@ -36,7 +36,7 @@ number headings: first-level 2, start-at 1, max 3, 1.1, auto, contents toc
 通过adb上传网络配置文件
 断电重启
 
-![](../image/项目/KelpBar小智桌面智慧屏/KelpBar小智桌面智慧屏-1778480318145.webp)
+![](../../image/项目/KelpBar小智桌面智慧屏/KelpBar小智桌面智慧屏-1778480318145.webp)
 
 > 实际上也不是一定能成功存在一定的概率。。。
 
