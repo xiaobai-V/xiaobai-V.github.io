@@ -4,29 +4,33 @@ description: 基于GCC和ARMCC两个版本
 tags:
 created: 2026-07-08
 updated: 2026-07-08
-number headings: first-level 1, start-at 1, max 3, 1.1, auto, contents toc
+number headings: first-level 1, start-at 1, max 3, 1.1, auto, contents toc, off
 ---
-# 1 Printf重定向串口
-## 1.1 CMake/GCC工程
+## Printf重定向串口
 
- CMake/GCC 工程：printf → Newlib 的 _write()（syscalls.c (Core/Src/syscalls.c)）→ __io_putchar()（usart.c (Core/Src/usart.c)）→ HAL_UART_Transmit
+### CMake/GCC工程：
 
-在 `usart.c`尾部`/* USER CODE BEGIN 1 */`添加如下代码
-```C
-/* USER CODE BEGIN 1 */
+`printf `→ `_write `→ `__io_putchar` → `HAL_UART_Transmit`。
+
+> `syscalls.c `中已有 `_write()` 遍历字符串逐字符调用 `__io_putchar` 的框架。该函数原本是 `__weak` 弱符号，我们提供的强符号会覆盖它。
+### MDK ARM工程
+
+函数名是 fputc，这正是 ARM C 库 / MicroLIB 的标准 retarget 入口，printf → fputc → HAL_UART_Transmit。
+
+```
 #include <stdio.h>
 // printf("text") → _write() [syscalls.c] → __io_putchar() [usart.c] → HAL_UART_Transmit(&huart1)
 // syscalls.c 中已有 _write() 遍历字符串逐字符调用 __io_putchar 的框架
 // 该函数原本是 __weak 弱符号，我们提供的强符号会覆盖它。
-int __io_putchar(int ch)
+#ifdef __GNUC__
+#define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
+#else
+#define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
+#endif
+
+PUTCHAR_PROTOTYPE
 {
     HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, HAL_MAX_DELAY);
     return ch;
 }
-/* USER CODE END 1 */
 ```
-
-
-## 1.2 MDK工程
-
-MDK/ARM
