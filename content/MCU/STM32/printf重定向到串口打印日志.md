@@ -1,3 +1,16 @@
+---
+title: printf重定向到串口打印日志
+description: 基于GCC和ARMCC两个版本
+tags:
+created: 2026-07-08
+updated: 2026-07-08
+number headings: first-level 1, start-at 1, max 3, 1.1, auto, contents toc
+---
+# 1 Printf重定向串口
+## 1.1 CMake/GCC工程
+
+ CMake/GCC 工程：printf → Newlib 的 _write()（syscalls.c (Core/Src/syscalls.c)）→ __io_putchar()（usart.c (Core/Src/usart.c)）→ HAL_UART_Transmit
+
 在 `usart.c`尾部`/* USER CODE BEGIN 1 */`添加如下代码
 ```C
 /* USER CODE BEGIN 1 */
@@ -12,3 +25,8 @@ int __io_putchar(int ch)
 }
 /* USER CODE END 1 */
 ```
+
+
+## 1.2 MDK工程
+
+MDK/ARM
