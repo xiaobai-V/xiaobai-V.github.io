@@ -15,7 +15,8 @@ number headings: first-level 1, start-at 1, max 3, 1.1, auto, contents toc, off
 > `syscalls.c `中已有 `_write()` 遍历字符串逐字符调用 `__io_putchar` 的框架。该函数原本是 `__weak` 弱符号，我们提供的强符号会覆盖它。
 ### MDK ARM工程
 
-函数名是 fputc，这正是 ARM C 库 / MicroLIB 的标准 retarget 入口，printf → fputc → HAL_UART_Transmit。
+函数名是 fputc，ARM C 库 / MicroLIB 的标准 retarget 入口，
+`printf` → `fputc` → `HAL_UART_Transmit`。
 
 ```
 #include <stdio.h>
