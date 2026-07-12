@@ -12,7 +12,7 @@ description: 嵌入式开发学习笔记与技术分享
 
 ## 1.2 内容导航
 
-- [[基础/index|基础]] — C 语言进阶、硬件基础、通信协议
+- [[硬件基础/index|基础]] — C 语言进阶、硬件基础、通信协议
 - [[MCU/STM32/index|STM32]] — HAL库、外设驱动、CubeMX 配置
 - [[MCU/FreeRTOS/index|FreeRTOS]] — 任务管理、内存管理、同步机制
 - [[Linux/index|嵌入式 Linux]] — 系统编程、IPC、驱动开发
