@@ -62,11 +62,11 @@ PUTCHAR_PROTOTYPE
 
 ## 5 要点速查
 
-| 项 | 要点 |
-|---|---|
-| GCC 入口 | `__io_putchar`（覆盖 `__weak` 同名函数） |
-| MDK 入口 | `fputc` |
-| 统一手段 | `#ifdef __GNUC__` 切换函数原型 |
-| 串口句柄 | `huart1` 换成自己 CubeMX 配的 |
-| MDK | 勾 MicroLIB，否则体积大 / `%f` 可能不行 |
-| GCC | `syscalls.c` 的 `_write` 要调到 `__io_putchar` |
+| 项      | 要点                                         |
+| ------ | ------------------------------------------ |
+| GCC 入口 | `__io_putchar`（覆盖 `__weak` 同名函数）           |
+| MDK 入口 | `fputc`                                    |
+| 统一手段   | `#ifdef __GNUC__` 切换函数原型                   |
+| 串口句柄   | `huart1` 换成自己 CubeMX 配的                    |
+| MDK    | 勾 MicroLIB，否则体积大 / `%f` 可能不行               |
+| GCC    | `syscalls.c` 的 `_write` 要调到 `__io_putchar` |
