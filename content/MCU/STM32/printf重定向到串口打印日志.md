@@ -1,7 +1,7 @@
 ---
 title: printf重定向到串口打印日志
 date: 2026-07-08
-description: 在 GCC 和 MDK 两种工具链下把 printf 重定向到串口，用一个 #ifdef 统一实现
+description: 在 GCC 和 MDK 两种工具链下把 printf 重定向到串口，用一个
 tags:
   - STM32
   - UART
